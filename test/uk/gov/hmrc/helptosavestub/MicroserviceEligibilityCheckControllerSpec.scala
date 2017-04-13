@@ -17,17 +17,13 @@
 package uk.gov.hmrc.helptosavestub.controllers
 
 import play.api.http.Status
-import play.api.test.FakeRequest
-import play.api.http.Status
 import play.api.libs.json.{JsSuccess, Json}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.play.test.UnitSpec
-import uk.gov.hmrc.play.test.WithFakeApplication
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.helptosavestub.models.UserDetails
+import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
-class MicroserviceEligibilityCheckControllerSpec extends UnitSpec with WithFakeApplication{
+class MicroserviceEligibilityCheckControllerSpec extends UnitSpec with WithFakeApplication {
 
   val fakeRequest = FakeRequest("GET", "/")
 

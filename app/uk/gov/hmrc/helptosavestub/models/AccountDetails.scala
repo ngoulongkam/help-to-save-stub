@@ -16,20 +16,12 @@
 
 package uk.gov.hmrc.helptosavestub.models
 
-import java.time.LocalDate
-
 import play.api.libs.json.{Format, Json}
 
-case class UserDetails(name: String,
-                       NINO: String,
-                       dateOfBirth: LocalDate,
-                       email: String,
-                       phoneNumber: String,
-                       address: List[String],
-                       contactPreference: ContactPreference)
+case class AccountDetails(accountName: String, sortCode: String, accountNumber: String)
 
-object UserDetails {
+object AccountDetails {
 
-  implicit val userDetailsFormat: Format[UserDetails] = Json.format[UserDetails]
+  implicit val AccountDetailsFormat: Format[AccountDetails] = Json.format[AccountDetails]
 
 }
