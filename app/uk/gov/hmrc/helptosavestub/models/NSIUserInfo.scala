@@ -132,16 +132,15 @@ object NSIUserInfo {
     (lengthCheck |@| lineCheck).map( (_, lines) ⇒ lines)
   }
 
-  private def postcodeValidation(postcode: Option[String]): ValidatedNel[String,String] = postcode match{
+  private def postcodeValidation(postcode: Option[String]): ValidatedNel[String, String] = postcode match {
     case None ⇒
       Invalid(NonEmptyList.of("Postcode undefined"))
 
-    case Some(p) ⇒
-      val lengthCheck =
-        validatedFromBoolean(p)(_.length <= 10, "Postcode was longer thn 10 characters")
-      val regexCheck = regexValidation(p)(postcodeRegex, "Invalid postcode format")
-
-      (lengthCheck |@| regexCheck).tupled.map(_ ⇒ p)
+    case Some(p) ⇒if(p.isEmpty){
+      Invalid(NonEmptyList.of("Empty postcode found"))
+    } else {
+      Valid(p)
+    }
   }
 
   private def countryCodeValidation(countryCode: Option[String]): ValidatedNel[String, Option[String]] =
@@ -278,9 +277,4 @@ object NSIUserInfo {
 
   private[models] val ninoRegex =("""^(([A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])([0-9]{2})([0-9]{2})"""+
     """([0-9]{2})([A-D]{1})|((XX)(99)(99)(99)(X)))$""").r
-
-   val postcodeRegex =
-    ("""^((GIR)(0AA)|([A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|[A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))|""" +
-      """[0-9][A-HJKS-UW]))([0-9][ABD-HJLNP-UW-Z]{2})|(([A-Z]{1,4})(1ZZ))|((BFPO)([0-9]{1,4})))$""").r
-
 }
